@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest -i",
-    "start": "node server.js",
-    "heroku config" :"set NPM_CONFIG_PRODUCTION=false"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
