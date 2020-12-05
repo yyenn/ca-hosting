@@ -3,10 +3,10 @@ const {Client} = require('pg')
 const moment = require('moment')
 
 const client = new Client({
-  user: 'rsnwfrpe',
+  user: 'huteipzb',
   host: 'lallah.db.elephantsql.com',
-  database: 'rsnwfrpe',
-  password: 'M06gGFc9abtiSuJxlayq9jKe7mtB22h2',
+  database: 'huteipzb',
+  password: '7Ae6sj5dkxMZMJdOOz8ngbjn6FSfQ194',
   port: 5432,
 })
 
