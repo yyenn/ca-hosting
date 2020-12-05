@@ -1,0 +1,4 @@
+GET http://localhost:3000/company/arrival_rate
+        ?queue_id=QUEUE10001
+        &from=2020-10-12T07:35:00Z
+        &duration=3 HTTP/1.1
