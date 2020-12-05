@@ -268,7 +268,7 @@ const company = {
 const reset = {
   resetSchema: function() {
     let sql1 = `SELECT queue_id FROM queue_list;`
-    let sql2 = "DROP TABLE "
+    let sql2 = "DROP TABLE if exists"
     let sql3 = "TRUNCATE TABLE queue_list;"
     return new Promise((resolve, reject) => {
       client
