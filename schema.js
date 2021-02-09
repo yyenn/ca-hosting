@@ -2,6 +2,23 @@ var Validator = require('jsonschema').Validator;
 var v = new Validator();
 
 const schema = {
+    getCompanySchema: (body) => {
+        let bodyschema = {
+            "type": "object",
+            "required": ["company_id"],
+            "properties": {
+                "company_id": {
+                    "type": "integer",
+                    "minimum": 1000000000,
+                    "maximum": 9999999999,
+                }
+            }
+            
+        }
+        var r = (v.validate(body, bodyschema));
+        console.log( r.errors)
+        return r.errors.map(res => res.path[0]);
+    },
 
     checkQueueSchema: (body) => {
         let bodyschema = {

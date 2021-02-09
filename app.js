@@ -69,6 +69,30 @@ app.get("/company/arrival_rate", (req, res, next) => {
         .catch((err) => {next(err)})
 })
 
+app.get("/company/queue", (req, res, next) => {
+    let companyid = req.query.company_id;
+    let validateRS = schema.getCompanySchema({ company_id : parseInt(companyid)});
+    let err;
+
+    if(validateRS.length > 0) {
+        let errorMessage = validateRS.map(values => "Invalid " + values).toString();
+        err = new Error(errorMessage);
+        err.statusCode = 400;
+        err.code = "INVALID_COMPANY_ID";
+        next(err);
+        return;
+    }
+    
+    company
+        .getQueue(companyid)
+        .then((result) => {
+            console.log("Success!")
+            console.log(result)
+            res.json(result);
+        })
+        .catch(err => {console.log(err); next(err);})
+})
+
 app.post("/company/queue", (req, res, next) => {
     let queue_id = req.body.queue_id;
     let company_id = req.body.company_id;

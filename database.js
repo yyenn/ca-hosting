@@ -2,12 +2,10 @@ const { queue, until } = require('async');
 const {Client} = require('pg')
 const moment = require('moment')
 
+const connectionString = 'postgres://tktilunn:VS2qznq1GukTbz_6JYMn3mh8UGjlyXAJ@john.db.elephantsql.com:5432/tktilunn'
+
 const client = new Client({
-  user: 'huteipzb',
-  host: 'lallah.db.elephantsql.com',
-  database: 'huteipzb',
-  password: '7Ae6sj5dkxMZMJdOOz8ngbjn6FSfQ194',
-  port: 5432,
+  connectionString,
 })
 
 client.connect();
@@ -131,6 +129,27 @@ const customer = {
 }
 
 const company = {
+  getQueue: function(company_id) {
+    let sql = `select queue_id from queue_tab WHERE company_id = ${company_id}`;
+
+    return new Promise((resolve, reject) => {
+      client
+      .query(sql)
+      .then((result) => {
+        return resolve(result.rows);
+      })
+      .catch((err) => {
+        console.log(err);
+        if(err.code == "42P01") { 
+          err = new Error(`Queue ID ${company_id} not found`);
+          err.statusCode = 404;
+          err.code = "UNKNOWN_COMPANY_ID";
+        }
+        return reject(err);
+      })
+    });
+  },
+
   getArrival: function(queue_id, fromDate, duration) {
     queue_id = queue_id.toLowerCase();
     let notOffsetUntilDate = moment(fromDate).add(duration, 'minute');
